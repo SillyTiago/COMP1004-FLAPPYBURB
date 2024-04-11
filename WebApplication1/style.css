@@ -22,3 +22,21 @@
     left: 30vw;
     z-index: 100;
 }
+
+.pipe {
+    position: fixed;
+    width: 80px; 
+    background-color: green; 
+    bottom: 0; 
+    z-index: 10;
+}
+
+.pipeTop {
+    top: 0; 
+    height: 200px; 
+}
+
+.pipeBottom {
+    bottom: 0;
+    height: 200px; 
+}

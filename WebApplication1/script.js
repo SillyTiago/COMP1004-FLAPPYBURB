@@ -39,4 +39,52 @@ function startGame() {
 
 startGame();
 
+function createPipe() {
+    const pipeGap = 200; // Gap between both pipes
+    const pipeHeight = Math.floor(Math.random() * 200) + 50; // Top pipe height is randomized to add variety to the gameplay
+
+    const pipeTop = document.createElement('div');
+    pipeTop.className = 'pipe pipeTop';
+    pipeTop.style.height = `${pipeHeight}px`;
+    pipeTop.style.left = '100vw'; // Pipes start appearing from the right
+
+    const pipeBottom = document.createElement('div');
+    pipeBottom.className = 'pipe pipeBottom';  
+    pipeBottom.style.height = `${window.innerHeight - pipeHeight - pipeGap}px`; // Bottom pipe position/height = Top Pipe height + gap
+    pipeBottom.style.left = '100vw'; // Bot pipe aligns with Top Pipe
+
+    document.body.appendChild(pipeTop);
+    document.body.appendChild(pipeBottom);
+
+    movePipe(pipeTop, pipeBottom);
+}
+
+function movePipe(pipeTop, pipeBottom) {
+    let pipeCurrentPosition = 100; // Pipe start from right position 
+
+    const moveInterval = setInterval(() => {
+        pipeCurrentPosition -= 2; // Pipes move from right to left
+        pipeTop.style.left = `${pipeCurrentPosition}vw`;
+        pipeBottom.style.left = `${pipeCurrentPosition}vw`;
+
+        if (pipeCurrentPosition <= -10) { // Pipes get removed once they go off screen
+            clearInterval(moveInterval);
+            document.body.removeChild(pipeTop);
+            document.body.removeChild(pipeBottom);
+        }
+
+        // Collision detection with the burb in case it hits the pipes
+        if (
+            birdPosition < pipeTop.offsetHeight ||
+            birdPosition > window.innerHeight - pipeBottom.offsetHeight
+        ) {
+            endGame(); // If burb hits, endGame() function is called
+        }
+
+    }, 300); // Value for pipe speed, might need to chance depending if too slow/fast
+}
+
+
+setInterval(createPipe, 3000); // Pipe generation rate value
+
 // testing github
