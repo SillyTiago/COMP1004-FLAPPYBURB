@@ -17,10 +17,13 @@ This project was mainly made as a way for me to manage my self-management skills
 - Music and SFX (with a volume slider aswell)
 - Cartoonish graphics
 
-# GAME POSTER
+# Known Issues
+- Scoring gives two points instead of one.
+
+# Game Poster
 ![alt text](https://github.com/SillyTiago/COMP1004-FLAPPYBURB/blob/master/WebApplication1/Images/poster.png)
 
-# UTILIZED ASSETS
+# Utilized Assets
 - Background image provided by: [Vecteezy.com](https://www.vecteezy.com)
 - Background music by: LAKEY INSPIRED
 - Game over music and jump sound both provided by: [freesound.org](https://freesound.org)
