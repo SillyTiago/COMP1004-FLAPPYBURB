@@ -18,4 +18,4 @@ This project was mainly made as a way for me to manage my self-management skills
 - Cartoonish graphics
 
 # LINK TO GAME POSTER
-
+![alt text](https://github.com/SillyTiago/COMP1004-FLAPPYBURB/blob/master/WebApplication1/Images/poster.png)
