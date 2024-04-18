@@ -9,7 +9,29 @@ let message = document.querySelector('.message') // DOM element for displaying t
 let gameState = 'Start'; // Defines the current state of the game
 let pipeSeparation = 0; // This value will manage the horizontal separation from pipe to pipe
 
+let score_val = document.querySelector('.score_val'); // defines the value for our score
+let score_title = document.querySelector('.score_title'); // defines the title for our score (the text that says "score")
+
+let gameMusic = document.getElementById('gameMusic'); // Defines our game music
+let jumpSound = document.getElementById('jumpSound'); // Defines our Jump SFX
+let gameOverSound = document.getElementById('gameOverSound'); // Defines our game over SFX
+
+let volumeSlider = document.getElementById('volumeSlider'); // Defines our volume slider
+
 document.addEventListener('keydown', handleKeyDown); // Event listener that will look for any key presses
+
+// This below ensures our volume slider that is available on the Top right of the screen works 
+document.addEventListener('DOMContentLoaded', function () {
+
+    function updateVolume() {
+        let newVolume = volumeSlider.value; 
+        gameMusic.volume = newVolume; 
+        gameOverSound.volume = newVolume; 
+    }
+    updateVolume();
+
+    volumeSlider.addEventListener('input', updateVolume);
+});
 
 // This function handles key down events that control the games function. So this code is what lets the user start the game by pressing Enter (The game breaks if this code is removed pretty much)
 function handleKeyDown(e) {
@@ -17,6 +39,7 @@ function handleKeyDown(e) {
         startGame();
     } else if (gameState === 'Play' && (e.key == 'ArrowUp' || e.key == ' ')) {
         burbVV = -7; // New value for the burb vertical velocity will set an upward impusilve that simulates the burb jumping
+        playJumpSound();
     }
 }
 
@@ -26,7 +49,11 @@ function startGame() {
     burb.style.top = '40vh'; 
     gameState = 'Play'; 
     message.innerHTML = '';
+    score_title.innerHTML = 'Current Score (2x): ';
+    score_val.innerHTML = '0';
     pipeSeparation = 0; 
+    message.style.display = 'none';
+    gameMusic.play();
     play();
 }
 
@@ -56,6 +83,7 @@ function updatePipePosition(pipe, pipeBox) {
     if (checkCollision(pipeBox)) {
         gameOver();
     } else {
+        incrementScore(pipe, pipeBox);
         pipe.style.left = pipeBox.left - pipeSpeed + 'px';
     }
 }
@@ -74,7 +102,10 @@ function checkCollision(pipeBox) {
 // Function that is responsible for ending the game and displaying the Game Over Screen
 function gameOver() {
     gameState = 'End';
-    message.innerHTML = '*Game Over*<br>Press Enter To Restart'.fontcolor('black');
+    message.innerHTML = '*Game Over*<br>Press Enter To Restart';
+    message.style.display = 'block'; 
+    message.style.fontColor = 'black'
+    gameOverSound.play(); 
 }
 
 // Function responsible for applying gravity to our burb. It also calls for gameOver() in case it hits the Top or Bottom of screen
@@ -113,5 +144,27 @@ function createPipe() {
     pipe.className = 'pipe_texture';
     pipe.style.top = pipePosition + 37 + 'vh';
     pipe.style.left = '100vw';
+    pipe.scoreIncremented = false;
     document.body.appendChild(pipe);
+}
+
+// Responsible for incrementing our score. It's currently bugged unfortunately (you can check the note below for more information)
+function incrementScore(pipe, pipeBox) {
+    let burbBox = burb.getBoundingClientRect();
+    if (
+        pipeBox.right < burbBox.left &&
+        !pipe.scoreIncremented &&
+        pipeBox.right + pipeSpeed >= burbBox.left
+    ) {
+        score_val.textContent = parseInt(score_val.textContent) + (0.5 * 2); // For some reason, its attributting 2 points instead of one
+        pipe.scoreIncremented = true;
+
+    }
+}
+
+// Function responsible for playing our Jump sound
+function playJumpSound() {
+    jumpSound.currentTime = 0; 
+    jumpSound.volume = 0.5;
+    jumpSound.play();
 }

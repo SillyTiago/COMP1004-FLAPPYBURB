@@ -14,5 +14,16 @@
     <div class="message">
         Press Enter to Start. Space/ArrowUp to Jump</p>
     </div>
+    <div class="score">
+        <span class="score_title"></span>
+        <span class="score_val"></span>
+    </div>
+    <div class="volume-control">
+        <label for="volumeSlider">Volume:</label>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+    </div>
+    <audio id="gameMusic" src="sounds/music.mp3" autoplay loop></audio>
+    <audio id="jumpSound" src="sounds/woosh.mp3"></audio>
+    <audio id="gameOverSound" src="sounds/gameover.mp3"></audio>
 </body>
 </html>
