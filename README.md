@@ -24,6 +24,7 @@ This project was mainly made as a way for me to manage my self-management skills
 ![alt text](https://github.com/SillyTiago/COMP1004-FLAPPYBURB/blob/master/WebApplication1/Images/poster.png)
 
 # Utilized Assets
+- Bird image provided by: [PNG ALL](https://www.pngall.com)
 - Background image provided by: [Vecteezy.com](https://www.vecteezy.com)
 - Background music by: LAKEY INSPIRED
 - Game over music and jump sound both provided by: [freesound.org](https://freesound.org)
